@@ -43,7 +43,7 @@ def log(request):
         <html>
             <body>
                 <h1>Welcome!</h1>
-                <h3> <a href="{% url 'logout' %}">Logout</a></h3>
+                <h3> <a href='logout'>Logout</a></h3>
             </body>
         </html>
         '''
@@ -56,7 +56,6 @@ def log(request):
 
 
 def out(request):
-    pass
+    logout(request)
+    return redirect('/')
 
-def profile(request):
-    pass
