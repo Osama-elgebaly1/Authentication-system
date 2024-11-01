@@ -1,7 +1,8 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import login,logout
+from django.contrib.auth import login,logout,authenticate
 from django import forms
+from django.http import HttpResponse
 # Create your views here.
 
 
@@ -29,10 +30,32 @@ def register(request):
         return render(request,'register.html',{})
 
 
-def Login(request):
-    pass
+def log(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username,
+                            password=password)
+        if user is not None:
 
-def logout(request):
+            login(request,user)
+            html_content = '''
+        <html>
+            <body>
+                <h1>Welcome!</h1>
+                <h3> <a href="{% url 'logout' %}">Logout</a></h3>
+            </body>
+        </html>
+        '''
+            return HttpResponse(html_content)
+        
+        else:
+            return HttpResponse('User does not exist ')
+    else:
+        return render(request,'login.html',{})
+
+
+def out(request):
     pass
 
 def profile(request):
