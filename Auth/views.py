@@ -25,7 +25,15 @@ def register(request):
             user.last_name = lastname
             user.save()
         
-            return redirect('/')
+            html_content = '''
+            <html>
+                <body>
+                    <h1>Welcome!</h1>
+                    <h3> <a href='/logout/'>Logout</a></h3>
+                </body>
+            </html>
+            '''
+            return HttpResponse(html_content)
     else:
         return render(request,'register.html',{})
 
@@ -43,7 +51,7 @@ def log(request):
         <html>
             <body>
                 <h1>Welcome!</h1>
-                <h3> <a href='logout'>Logout</a></h3>
+                <h3> <a href='/logout/'>Logout</a></h3>
             </body>
         </html>
         '''
